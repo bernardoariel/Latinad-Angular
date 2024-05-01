@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { SideBarService } from 'app/services/sideBar.service';
 import { Subscription } from 'rxjs';
 
@@ -13,8 +13,9 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
-  isOpen = false;
   private subscription: Subscription;
+  private router = inject(Router)
+  isOpen = false;
 
   constructor(
     public sideBarService: SideBarService,
@@ -27,8 +28,12 @@ export class SidebarComponent {
   }
 
   onCheckboxChange(event: Event): void {
-    const checkbox = event.target as HTMLInputElement;
-    this.sideBarService.setIsOpen(checkbox.checked);
+    this.isOpen = (event.target as HTMLInputElement).checked;
+  }
+  navigate(url: string) {
+    this.router.navigateByUrl(url).then(() => {
+      this.sideBarService.setIsOpen(false); // Cierra el sidebar después de la navegación
+    });
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

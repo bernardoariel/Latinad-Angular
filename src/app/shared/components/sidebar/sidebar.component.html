@@ -6,10 +6,10 @@
   <div class="drawer-side">
     <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-      <!-- Sidebar content here -->
-      <li><a routerLink="/dashboard/pantallas">Ver Items</a></li>
-      <li><a routerLink="/dashboard/pantalla">Agregar Item</a></li>
-      <li><a routerLink="/dashboard/seed-pantallas">Agregar Multiples Items</a></li>
+      
+      <li><a (click)="navigate('/dashboard/pantallas')">Ver Items</a></li>
+      <li><a (click)="navigate('/dashboard/pantalla')">Agregar Item</a></li>
+      <li><a (click)="navigate('/dashboard/seed-pantallas')">Agregar Multiples Items</a></li>
       
     </ul>
   </div>
