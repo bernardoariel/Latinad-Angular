@@ -13,10 +13,12 @@ import { ToolbarComponent } from 'app/shared/components/toolbar/toolbar.componen
     RouterModule,
     ToolbarComponent,
     FooterComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutComponent { }
+export class LayoutComponent {
+ 
+}
