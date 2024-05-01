@@ -30,7 +30,7 @@ export class AuthService {
     if (token) {
       localStorage.setItem('authToken', token);
       localStorage.setItem('userName', email);
-      this.router.navigateByUrl('/pantallas');
+      this.router.navigateByUrl('/dashboard');
       this.checkAuth()
       return true;
     }
