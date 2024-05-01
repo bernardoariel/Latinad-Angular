@@ -1,3 +1,56 @@
 :host {
   display: block;
 }
+ @keyframes colorChange {
+   0% {
+     background-color: #f6d365;
+     /* Amarillo suave */
+   }
+
+   25% {
+     background-color: #fda085;
+     /* Naranja suave */
+   }
+
+   50% {
+     background-color: #fbc2eb;
+     /* Rosa suave */
+   }
+
+   75% {
+     background-color: #a6c1ee;
+     /* Azul suave */
+   }
+
+   100% {
+     background-color: #f6d365;
+     /* Vuelve al Amarillo suave */
+   }
+ }
+
+ .background-animate {
+   animation: colorChange 15s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+ }
+
+ @keyframes float {
+
+   0%,
+   100% {
+     transform: translateY(0);
+   }
+
+   50% {
+     transform: translateY(-20px);
+   }
+ }
+
+ .logo {
+   animation: float 6s ease-in-out infinite;
+  position: fixed;
+    bottom: 10px;
+    /* Ajusta la distancia desde el borde inferior */
+    right: 10px;
+    /* Ajusta la distancia desde el borde derecho */
+    width: 100px;
+    /* Ajusta según el tamaño deseado */
+ }
