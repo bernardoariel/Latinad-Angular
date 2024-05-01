@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { SideBarService } from 'app/services/sideBar.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

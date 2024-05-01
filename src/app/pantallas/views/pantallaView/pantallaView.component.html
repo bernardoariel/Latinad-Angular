@@ -1,1 +1,47 @@
-<p>pantallaView works!</p>,
+
+<div class="flex items-center justify-center min-h-screen">
+
+<div class="card w-96 bg-base-100 shadow-xl flex items-center justify-center mt-2">
+  <div class="card-body" [formGroup]="myForm">
+    
+    <h2 class="card-title">Agregando Pantalla</h2>
+    
+    <label class="input input-bordered flex items-center gap-2">
+        Nombre
+        <input type="text" class="grow" placeholder="Ingrese el nombre" formControlName="nombre"/>
+    </label>
+
+    <label class="input input-bordered flex items-center gap-2">
+        Descripcion
+        <input type="text" class="grow" placeholder="Ingrese una descripcion" formControlName="descripcion"/>
+    </label>
+    
+    <label class="input input-bordered flex items-center gap-2">
+        Precio
+        <input type="text" class="grow" placeholder="Ingrese el precio" formControlName="precio"/>
+    </label>
+    
+    <label class="input input-bordered flex items-center gap-2">
+        Resolucion H
+        <input type="text" class="grow" placeholder="Resolucion de alto" formControlName="resolucionH"/>
+    </label>
+    
+    <label class="input input-bordered flex items-center gap-2">
+        Resolucion W
+        <input type="text" class="grow" placeholder="Resolucion de ancho" formControlName="resolucionW"/>
+    </label>
+    
+    <label class="form-control w-full max-w-xs">
+        <select class="select select-bordered" formControlName="tipoPantalla">
+          <option value="" disabled selected>Seleccione un tipo de pantalla</option>
+          <option value="Indoor">Indoor</option>
+          <option value="Outdoor">Outdoor</option>
+        </select>
+      </label>
+    
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary" (click)="guardarDisplay()">Guardar</button>
+    </div>
+  </div>
+</div>
+</div>

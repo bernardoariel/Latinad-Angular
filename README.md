@@ -14,6 +14,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - Open & Close Sidebar
     - Rename layoutPrincipal from 'pantallas' to 'dashboard' 
     - Creacion de componente MyTable
+    - Creacion de Servicio para consumir los registros de display
+    - Creacion de un display Form - Servicios
+    - 
+
 
     
 
