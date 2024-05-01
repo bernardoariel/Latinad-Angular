@@ -3,11 +3,13 @@ import { environment } from 'environments/environment.development';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginResponse, User } from 'app/interfaces';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private readonly baseUrl: string = environment.backendApi;
+  private router=  inject(Router)
   private http = inject(HttpClient);
   constructor() {}
 
@@ -28,8 +30,9 @@ export class AuthService {
     if (token) {
       localStorage.setItem('authToken', token);
       localStorage.setItem('userName', email);
-      // return true;
+      this.router.navigateByUrl('/pantallas');
       this.checkAuth()
+      return true;
     }
     return false;
   }
