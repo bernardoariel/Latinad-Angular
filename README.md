@@ -16,8 +16,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - Creacion de componente MyTable
     - Creacion de Servicio para consumir los registros de display
     - Creacion de un display Form - Servicios
-    - 
-
+    - Creacion de un display Form - Servicios
+    - Implementacion de Edicion
+    - Implementacion de Eliminacion
 
     
 

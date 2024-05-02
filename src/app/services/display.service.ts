@@ -55,8 +55,6 @@ export class DisplayService {
     return this.http.post<any>(`${this.baseUrl}/display`, body, { headers });
   }
   updateDisplay(id: number, displayData: any): Observable<any> {
-    console.log('id::: ', id);
-    console.log('displayData::: ', displayData);
     const token = localStorage.getItem('authToken');
     if (!token) throw new Error('Auth token not found');
 
@@ -74,5 +72,11 @@ export class DisplayService {
       });
 
   }
-  deleteDisplay() {}
+  deleteDisplay(id:number) {
+    const token = localStorage.getItem('authToken');
+    if (!token) throw new Error('Auth token not found');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/display/${id}`, { headers });
+  }
 }
