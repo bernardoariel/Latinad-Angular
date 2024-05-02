@@ -32,23 +32,47 @@ export class DisplayService {
 
     return this.http.get<any>(`${this.baseUrl}/display`, { headers, params });
   }
-  getDisplayById() {}
+  getDisplayById(id: number) {
+    const token = localStorage.getItem('authToken');
+    if (!token) throw new Error('Auth token not found');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(`${this.baseUrl}/display/${id}`, { headers });
+  }
   createDisplay(displayData: any): Observable<any> {
     const token = localStorage.getItem('authToken');
     if (!token) throw new Error('Auth token not found');
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const body = {
-      name: displayData.nombre,
-      description: displayData.descripcion,
-      price_per_day: parseInt(displayData.precio),
-      resolution_height: parseInt(displayData.resolucionH),
-      resolution_width: parseInt(displayData.resolucionW),
-      type: displayData.tipoPantalla,
+      name: displayData.name,
+      description: displayData.description,
+      price_per_day: parseInt(displayData.price_per_day),
+      resolution_height: parseInt(displayData.resolution_height),
+      resolution_width: parseInt(displayData.resolution_width),
+      type: displayData.type,
     };
 
     return this.http.post<any>(`${this.baseUrl}/display`, body, { headers });
   }
-  updateDisplay() {}
+  updateDisplay(id: number, displayData: any): Observable<any> {
+    console.log('id::: ', id);
+    console.log('displayData::: ', displayData);
+    const token = localStorage.getItem('authToken');
+    if (!token) throw new Error('Auth token not found');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const body = {
+      name: displayData.name,
+      description: displayData.description,
+      price_per_day: parseInt(displayData.price_per_day),
+      resolution_height: parseInt(displayData.resolution_height),
+      resolution_width: parseInt(displayData.resolution_width),
+      type: displayData.type,
+    };
+      return this.http.put<any>(`${this.baseUrl}/display/${id}`, body, {
+        headers,
+      });
+
+  }
   deleteDisplay() {}
 }

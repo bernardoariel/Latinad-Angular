@@ -16,7 +16,7 @@ import { delayWhen, timer } from 'rxjs';
 })
 export class PantallasViewComponent {
   private displayService = inject(DisplayService);
-  private router = inject(Router)
+  private router = inject(Router);
   isLoading: boolean = true;
   displays: any[] = [];
   constructor(private cdr: ChangeDetectorRef) {
@@ -25,23 +25,25 @@ export class PantallasViewComponent {
 
   loadDisplays(): void {
     this.displayService
-      .getDisplayList(2, 1)
+      .getDisplayList(10, 1)
       .pipe(
         delayWhen(() => timer(1000)) // Espera 1000 ms antes de emitir los resultados
       )
       .subscribe({
         next: (data) => {
           this.displays = data.data;
+         
           this.isLoading = false; // Finalizar carga
-          this.cdr.markForCheck();
-          console.log('Displays:', data.data);
+          this.cdr.markForCheck(); // Trigger change detection
         },
         error: (error) => {
           console.error('Error fetching displays:', error);
+          this.isLoading = false; // También manejar estado de carga en caso de error
+          this.cdr.markForCheck(); // Trigger change detection
         },
       });
   }
-  agregarDisplay(){
+  agregarDisplay() {
     this.router.navigateByUrl('/dashboard/pantalla');
   }
 }

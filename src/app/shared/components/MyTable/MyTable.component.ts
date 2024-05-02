@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, SimpleChanges, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-table',
@@ -11,13 +12,17 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, S
 })
 export class MyTableComponent {
   @Input() displays: any[] = [];
+  private router=inject(Router)
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('Displays updated:', this.displays);
+    
     if (changes['displays'] && changes['displays'].currentValue) {
       console.log('Displays updated:', this.displays);
-      this.cdr.markForCheck(); // Forzar la detección de cambios
+      
     }
+  }
+  navigate(id:number){
+    this.router.navigateByUrl(`/dashboard/pantalla/${id}`)
   }
 }

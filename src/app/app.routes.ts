@@ -22,6 +22,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'pantallas', pathMatch: 'full' },
       { path: 'pantallas', component: PantallasViewComponent },
       { path: 'pantalla', component: PantallaViewComponent },
+      { path: 'pantalla/:id', component: PantallaViewComponent },
       { path: 'seed-pantallas', component: PantallaViewComponent },
     ],
   },

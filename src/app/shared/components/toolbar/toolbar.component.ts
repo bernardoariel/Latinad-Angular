@@ -16,6 +16,7 @@ export class ToolbarComponent {
   toggleDrawer(): void {
     console.log('toogle en toolbar')
     this.sideBarService.toggleDrawer();
+    this.sideBarService.setIsOpen(true);
   }
   
 }
