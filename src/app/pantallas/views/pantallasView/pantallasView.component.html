@@ -27,31 +27,36 @@
       </label>
     </div>
     <app-my-table [displays]="displays"></app-my-table>
-
-    <div class="pagination-controls flex items-center justify-center space-x-2">
-      <button class="btn" (click)="navigateToPage(1)" [disabled]="currentPage === 1">
-        ««
-      </button>
-      <button class="btn" (click)="navigateToPage(currentPage - 1)" [disabled]="currentPage === 1">
-        «
-      </button>
-      <span>Página {{currentPage}} de {{totalPages}}</span>
-      <button class="btn" (click)="navigateToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
-        »
-      </button>
-      <button class="btn" (click)="navigateToPage(totalPages)" [disabled]="currentPage === totalPages">
-        »»
-      </button> 
-
+    <div class="flex justify-between items-center px-4 py-2">
+      <!-- Total de registros -->
+      <span>Total de registros encontrados: {{ totalItems }}, mostrando {{ startIndex }} - {{ endIndex }} de {{ totalItems }}</span>
+      <!-- Controles de paginación -->
+      <div class="pagination-controls flex items-center justify-center space-x-2">
+        <button class="btn" (click)="navigateToPage(1)" [disabled]="currentPage === 1">
+          ««
+        </button>
+        <button class="btn" (click)="navigateToPage(currentPage - 1)" [disabled]="currentPage === 1">
+          «
+        </button>
+        <span>Página {{currentPage}} de {{totalPages}}</span>
+        <button class="btn" (click)="navigateToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+          »
+        </button>
+        <button class="btn" (click)="navigateToPage(totalPages)" [disabled]="currentPage === totalPages">
+          »»
+        </button> 
+      </div>
+      <!-- Selector de cantidad de registros por página -->
+      <label for="pageSize">Registros por Pagina:</label>
+      <select  class="select select-bordered w-30 ml-3 mr-3" id="pageSize" (change)="onChangePageSize($event)">
+        <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size === pageSize">{{ size }}</option>
+      </select>
     </div>
+    
 
 
-    <label for="pageSize">Registros por Pagina:</label>
-    <select  class="select select-bordered w-30 ml-3 mr-3" id="pageSize" (change)="onChangePageSize($event)">
-      <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size === pageSize">{{ size }}</option>
-    </select>
-    <span>Total de registros encontrados: {{ totalItems }}, mostrando {{ startIndex }} - {{ endIndex }} de {{ totalItems }}</span>
-
+    
+    
       <!-- <select (change)="onChangePageSize($event)">
         <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
       </select> -->
