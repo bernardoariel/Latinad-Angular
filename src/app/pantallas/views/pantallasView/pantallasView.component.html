@@ -1,11 +1,9 @@
 
 <div class="card bg-base-100 shadow-xl w-full mt-3 flex ">
-  <div class="card-body flex justify-end">
-    
-     <div *ngIf="isLoading">
-      <p>Loading displays...</p> <!-- o cualquier otro indicador de carga como un spinner -->
+  <div class="card-body flex justify-end"> 
+    <div class="flex justify-center items-center min-h-screen" *ngIf="isLoading">
+      <div class="loading loading-bars loading-lg h-24 w-24"></div>
     </div>
-
     <div *ngIf="!isLoading && displays.length > 0">
       
       <div class="flex items-center justify-between w-full">
@@ -13,7 +11,7 @@
           <!-- Campo de texto con ícono de búsqueda -->
           <div class="flex items-center">
             <label class="input input-bordered flex items-center gap-2">
-              <input type="text" class="grow" placeholder="Search"[(ngModel)]="searchQuery"(keydown)="handleKeyDown($event)" />
+              <input #searchInput type="text" class="grow" placeholder="Search"[(ngModel)]="searchQuery"(keydown)="handleKeyDown($event)" />
               <kbd class="kbd kbd-sm">ctrl</kbd>
               <kbd class="kbd kbd-sm">Enter</kbd>
             </label>
@@ -46,16 +44,7 @@
     </div>
 
       
-    
-      <!-- <label>
-        <input type="radio" class="radio radio-success" [value]="DisplayType.All" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Todos
-      </label>
-      <label>
-        <input type="radio" class="radio radio-success" [value]="DisplayType.Indoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Indoor
-      </label>
-      <label>
-        <input type="radio" class="radio radio-success" [value]="DisplayType.Outdoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Outdoor
-      </label> -->
+ 
   
     <app-my-table [displays]="displays"></app-my-table>
     <div class="flex justify-between items-center px-4 py-2">
@@ -85,17 +74,15 @@
     </div>
     
 
-
-    
-    
-      <!-- <select (change)="onChangePageSize($event)">
-        <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
-      </select> -->
       
     </div>
     <div *ngIf="!isLoading && displays.length === 0">
-      <p>No displays found.</p>
-    </div>
+  <div class="text-center mt-4">
+    <p class="text-lg">No se encontraron resultados para tu búsqueda.</p>
+    <p>Intenta con otros términos o <button class="btn btn-link" (click)="resetSearch()">limpia la búsqueda</button>.</p>
+  </div>
+</div>
+
 
   </div>
 </div>

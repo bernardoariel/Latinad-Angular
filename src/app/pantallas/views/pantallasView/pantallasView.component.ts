@@ -51,7 +51,7 @@ export class PantallasViewComponent implements OnInit {
   }
 
   loadDisplays(searchName?: string): void {
-    console.log('searchName::: ', searchName);
+    if (searchName) this.searchQuery = '';
     this.isLoading = true;
     const typeFilter =
       this.selectedType === DisplayType.All ? undefined : this.selectedType;
@@ -79,9 +79,10 @@ export class PantallasViewComponent implements OnInit {
       });
   }
   handleKeyDown(event: KeyboardEvent) {
-   
     if (event.ctrlKey && event.key === 'Enter') {
       this.loadDisplays(this.searchQuery);
+
+      this.searchQuery = '';
     }
   }
   onChangePageSize(event: Event) {
@@ -105,5 +106,9 @@ export class PantallasViewComponent implements OnInit {
 
   get endIndex(): number {
     return Math.min(this.startIndex + this.pageSize - 1, this.totalItems);
+  }
+  resetSearch() {
+    this.searchQuery = '';
+    this.loadDisplays();
   }
 }
