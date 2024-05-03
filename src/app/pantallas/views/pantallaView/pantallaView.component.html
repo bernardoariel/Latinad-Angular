@@ -27,7 +27,7 @@
       <label class="form-control w-3/4 ">
           <select class="select select-bordered" formControlName="type">
             <option value="" disabled selected>Seleccione un tipo de pantalla</option>
-            <option value="Indoor">Indoor</option>
+            <option value="indoor">Indoor</option>
             <option value="outdoor">Outdoor</option>
           </select>
       </label>
@@ -39,13 +39,16 @@
   </div>
  
 </div>
-  <div class="card bg-base-100 shadow-xl mt-4 w-1/6 ml-3 ">
+@if(id){
+<div class="card bg-base-100 shadow-xl mt-4 w-1/6 ml-3 ">
     <app-lazy-image
     [url]="imageUrl!"
     [alt]="'No name'"
     ></app-lazy-image>
   
   </div>
+}
+  
 </div>
 
 
