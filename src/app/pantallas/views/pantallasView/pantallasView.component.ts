@@ -34,6 +34,7 @@ export class PantallasViewComponent implements OnInit {
   currentIdToDelete: number | null = null;
   seeToast: boolean = false;
   nameItemByDelete= ''
+  isDisabled = false
   constructor(private cdr: ChangeDetectorRef) {
     this.loadDisplays();
   }
@@ -47,6 +48,7 @@ export class PantallasViewComponent implements OnInit {
     this.dialogOpen = true; // Opens the modal dialog
   }
   confirmDelete() {
+     this.isDisabled = true; 
     if (this.currentIdToDelete != null) {
       this.displayService.deleteDisplay(this.currentIdToDelete).subscribe({
         next: (response) => {
@@ -54,6 +56,7 @@ export class PantallasViewComponent implements OnInit {
           this.seeToast = true;
           setTimeout(() => {
             this.seeToast = false;
+             this.isDisabled = false; 
             this.cdr.detectChanges();
           }, 2000);
           this.cdr.detectChanges();

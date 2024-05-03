@@ -12,7 +12,11 @@ import { EMPTY, switchMap } from 'rxjs';
 @Component({
   selector: 'app-pantalla-view',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LazyImageComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    LazyImageComponent
+  ],
   templateUrl: './pantallaView.component.html',
   styleUrl: './pantallaView.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +28,8 @@ export class PantallaViewComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private displayService = inject(DisplayService);
-  isSaving = false
+  isSaving = false;
+  isDisabled = false
   public myForm!: FormGroup;
 
   ngOnInit(): void {
@@ -47,7 +52,7 @@ export class PantallaViewComponent implements OnInit {
       ],
       price_per_day: [
         '',
-        [Validators.required, Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)],
+        [Validators.required, Validators.pattern(/^[0-9]+$/)],
       ],
       resolution_height: [
         '',
@@ -95,7 +100,8 @@ export class PantallaViewComponent implements OnInit {
 
   guardarDisplay(): void {
     if (this.myForm.valid) {
-      this.isSaving=true
+      this.isSaving = true;
+      this.isDisabled = true;
       const operation = this.id
         ? this.displayService.updateDisplay(+this.id, this.myForm.value)
         : this.displayService.createDisplay(this.myForm.value);
@@ -106,7 +112,8 @@ export class PantallaViewComponent implements OnInit {
             `Display ${this.id ? 'actualizado' : 'creado'} con éxito`,
             response
           );
-          this.isSaving = false
+          this.isSaving = false;
+          this.isDisabled = false; 
           this.navigateToDisplays(); // Redirige al usuario después de la operación
         },
         error: (error) => {

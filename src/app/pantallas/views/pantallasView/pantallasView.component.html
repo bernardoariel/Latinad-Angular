@@ -100,8 +100,11 @@
       <p class="italic text-gray-600">{{ nameItemByDelete }}, con <span class="font-bold">id: {{currentIdToDelete}}</span></p>
     </div>
     <div class="modal-action">
-      <button class="btn" (click)="cancelDelete()">No</button>
-      <button class="btn btn-primary" (click)="confirmDelete()">Sí</button>
+      <button class="btn" (click)="cancelDelete()" [disabled]="isDisabled">No</button>
+      <button class="btn btn-primary" (click)="confirmDelete()">
+        <span *ngIf="isDisabled" class="loading loading-ring loading-sm"></span>
+        Sí
+      </button>
     </div>
   </div>
 </dialog>

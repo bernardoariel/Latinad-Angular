@@ -4,35 +4,84 @@
   <div class="card-body">
     <form [formGroup]="myForm" class="flex-grow">
       <h2 class="card-title mb-2"><span class="font-bold">{{ (!id) ? "Agregando ": "Editando "}} </span>Pantalla</h2>
-      <label class="input input-bordered flex items-center gap-2 mb-2">
-          Nombre
-          <input type="text" class="grow" placeholder="Ingrese el nombre" formControlName="name"/>
-      </label>
-      <label class="input input-bordered flex items-center gap-2 mb-2">
-          Descripcion
-          <input type="text" class="grow" placeholder="Ingrese una descripcion" formControlName="description"/>
-      </label>
-      <label class="input input-bordered flex items-center gap-2 mb-2">
-          Precio
-          <input type="text" class="grow" placeholder="Ingrese el precio" formControlName="price_per_day"/>
-      </label>
-      <label class="input input-bordered flex items-center gap-2 mb-2">
-          Resolucion H
-          <input type="text" class="grow" placeholder="Resolucion de alto" formControlName="resolution_height"/>
-      </label>
-      <label class="input input-bordered flex items-center gap-2 mb-2">
-          Resolucion W
-          <input type="text" class="grow" placeholder="Resolucion de ancho" formControlName="resolution_width"/>
-      </label>
-      <label class="form-control w-3/4 ">
-          <select class="select select-bordered" formControlName="type">
+      <!-- Nombre -->
+      <div class="input-group mb-3">
+        <label class="input input-bordered flex items-center gap-2"
+          [ngClass]="{'input-secondary ': myForm.get('name')?.touched && myForm.get('name')?.invalid}">
+          <input type="text" formControlName="name" placeholder="Nombre" class="form-control"/>
+        </label>
+        <div *ngIf="myForm.get('name')?.touched && myForm.get('name')?.errors">
+          <span class="text-red-300" *ngIf="myForm.get('name')?.hasError('required')">Este campo es requerido.</span>
+          <span class="text-red-300" *ngIf="myForm.get('name')?.hasError('minlength')">Debe tener al menos 3 caracteres.</span>
+          <span class="text-red-300" *ngIf="myForm.get('name')?.hasError('maxlength')">No puede exceder de 100 caracteres.</span>
+        </div>
+      </div>
+      <!-- Descripción -->
+      <div class="input-group mb-3">
+        <label class="input input-bordered flex items-center gap-2"
+          [ngClass]="{'input-secondary ': myForm.get('description')?.touched && myForm.get('description')?.invalid}">
+          <input type="text" formControlName="description" placeholder="Descripción" class="form-control">
+        </label>
+        <div *ngIf="myForm.get('description')?.touched && myForm.get('description')?.errors">
+          <span class="text-red-300" *ngIf="myForm.get('description')?.hasError('required')">Este campo es requerido.</span>
+          <span class="text-red-300" *ngIf="myForm.get('description')?.hasError('minlength')">Debe tener al menos 4 caracteres.</span>
+          <span class="text-red-300" *ngIf="myForm.get('description')?.hasError('maxlength')">No puede exceder de 500 caracteres.</span>
+        </div>
+      </div>
+
+      <!-- Precio por día -->
+      <div class="input-group mb-3">
+        <label class="input input-bordered flex items-center gap-2"
+          [ngClass]="{'input-secondary ': myForm.get('price_per_day')?.touched && myForm.get('price_per_day')?.invalid}">
+          <input type="text" formControlName="price_per_day" placeholder="Precio por día" class="form-control">
+        </label>
+        <div *ngIf="myForm.get('price_per_day')?.touched && myForm.get('price_per_day')?.errors">
+          <span class="text-red-300" *ngIf="myForm.get('price_per_day')?.hasError('required')">Este campo es requerido.</span>
+          <span class="text-red-300" *ngIf="myForm.get('price_per_day')?.hasError('pattern')">Debe ser un número entero.</span>
+        </div>
+      </div>
+
+      <!-- Resolución Altura -->
+      <div class="input-group mb-3">
+        <label class="input input-bordered flex items-center gap-2"
+          [ngClass]="{'input-secondary ': myForm.get('resolution_height')?.touched && myForm.get('resolution_height')?.invalid}">
+          <input type="text" formControlName="resolution_height" placeholder="Resolución Altura" class="form-control">
+        </label>
+        <div *ngIf="myForm.get('resolution_height')?.touched && myForm.get('resolution_height')?.errors">
+          <span class="text-red-300" *ngIf="myForm.get('resolution_height')?.hasError('required')">Este campo es requerido.</span>
+          <span class="text-red-300" *ngIf="myForm.get('resolution_height')?.hasError('pattern')">Debe ser un número entero.</span>
+          <span class="text-red-300" *ngIf="myForm.get('resolution_height')?.hasError('min')">El valor mínimo es 1.</span>
+        </div>
+      </div>
+      <!-- Resolución Ancho -->
+  <div class="input-group mb-3">
+    <label class="input input-bordered flex items-center gap-2"
+      [ngClass]="{'input-secondary ': myForm.get('resolution_width')?.touched && myForm.get('resolution_width')?.invalid}">
+      <input type="text" formControlName="resolution_width" placeholder="Resolución Ancho" class="form-control">
+    </label>
+    <div *ngIf="myForm.get('resolution_width')?.touched && myForm.get('resolution_width')?.errors">
+      <span class="text-red-300" *ngIf="myForm.get('resolution_width')?.hasError('required')">Este campo es requerido.</span>
+      <span class="text-red-300" *ngIf="myForm.get('resolution_width')?.hasError('pattern')">Debe ser un número entero.</span>
+      <span class="text-red-300" *ngIf="myForm.get('resolution_width')?.hasError('min')">El valor mínimo es 1.</span>
+    </div>
+  </div>
+     <div class="mb-3">
+     <label class="form-control w-full ">
+          <select class="select select-bordered" formControlName="type" 
+          [ngClass]="{'input-secondary ': myForm.get('type')?.touched && myForm.get('type')?.invalid}">
             <option value="" disabled selected>Seleccione un tipo de pantalla</option>
             <option value="indoor">Indoor</option>
             <option value="outdoor">Outdoor</option>
           </select>
       </label>
+      
+      
+      <div *ngIf="myForm.get('type')?.touched && myForm.get('type')?.errors">
+        <span class="text-red-300" *ngIf="myForm.get('type')?.hasError('required')">Debe seleccionar un tipo.</span>
+      </div>
+    </div>
       <div class="card-actions justify-between mt-5">
-        <button class="btn btn-accent" (click)="navigateToDisplays()">Cancelar</button>
+        <button class="btn btn-accent" (click)="navigateToDisplays()" [disabled]="isDisabled">Cancelar</button>
         <button class="btn btn-primary" (click)="guardarDisplay()">
           <span class="loading loading-spinner" *ngIf="isSaving"></span>
           Guardar
@@ -55,10 +104,3 @@
   
 </div>
 
-
-
-
-    <!--   <div class="flex items-center justify-center">
-
-  <div class="card w-96 bg-base-100 shadow-xl flex items-center justify-center mt-2">
-    <div class="card-body flex"> -->

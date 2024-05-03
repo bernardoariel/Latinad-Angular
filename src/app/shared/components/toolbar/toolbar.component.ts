@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
 import { SideBarService } from 'app/services/sideBar.service';
-
+import confetti from 'canvas-confetti';
 @Component({
   selector: 'app-toolbar',
   standalone: true,
@@ -31,5 +31,13 @@ export class ToolbarComponent {
   }
   onLogout() {
     this.authService.logout();
+  }
+  callConfetti(){
+    console.log('confeti')
+     confetti({
+       particleCount: 300,
+       spread: 150,
+       origin: { y: 0.6 },
+     });
   }
 }

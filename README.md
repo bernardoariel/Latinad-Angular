@@ -24,7 +24,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - Buscador
     - Guard's AUTH y notAuth
     - Logout 
-   
+    - Errores inputs
 
 ## TODO
 
@@ -32,7 +32,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 6. Responsive
 8. Pruebas
-9. Errores en los imputs
 10. Ver Error de la imagen lazyImage
 12. extra - tortas - DIF - stats
 
