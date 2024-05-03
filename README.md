@@ -35,7 +35,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 9. Errores en los imputs
 10. Ver Error de la imagen lazyImage
 12. extra - tortas - DIF - stats
-13. Loadings
 14. fix boton que gira del toolbar
 15. Mensajes - modales
 

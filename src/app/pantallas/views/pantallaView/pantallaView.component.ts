@@ -24,6 +24,7 @@ export class PantallaViewComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private displayService = inject(DisplayService);
+  isSaving = false
   public myForm!: FormGroup;
 
   ngOnInit(): void {
@@ -94,6 +95,7 @@ export class PantallaViewComponent implements OnInit {
 
   guardarDisplay(): void {
     if (this.myForm.valid) {
+      this.isSaving=true
       const operation = this.id
         ? this.displayService.updateDisplay(+this.id, this.myForm.value)
         : this.displayService.createDisplay(this.myForm.value);
@@ -104,6 +106,7 @@ export class PantallaViewComponent implements OnInit {
             `Display ${this.id ? 'actualizado' : 'creado'} con éxito`,
             response
           );
+          this.isSaving = false
           this.navigateToDisplays(); // Redirige al usuario después de la operación
         },
         error: (error) => {

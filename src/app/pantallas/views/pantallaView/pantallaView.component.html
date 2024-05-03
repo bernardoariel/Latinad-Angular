@@ -33,7 +33,11 @@
       </label>
       <div class="card-actions justify-between mt-5">
         <button class="btn btn-accent" (click)="navigateToDisplays()">Cancelar</button>
-        <button class="btn btn-primary" (click)="guardarDisplay()">Guardar</button>
+        <button class="btn btn-primary" (click)="guardarDisplay()">
+          <span class="loading loading-spinner" *ngIf="isSaving"></span>
+          Guardar
+        </button>
+        
       </div>
     </form>
   </div>
