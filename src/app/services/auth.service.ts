@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private readonly baseUrl: string = environment.backendApi;
-  private router=  inject(Router)
+  private router = inject(Router);
   private http = inject(HttpClient);
   constructor() {}
 
@@ -31,18 +31,20 @@ export class AuthService {
       localStorage.setItem('authToken', token);
       localStorage.setItem('userName', email);
       this.router.navigateByUrl('/dashboard');
-      this.checkAuth()
+      this.checkAuth();
       return true;
     }
     return false;
   }
-
+  logout(): void {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userName');
+    this.router.navigateByUrl('/login');
+  }
   checkAuth(): Observable<boolean> {
     const token = localStorage.getItem('authToken');
     const url = this.baseUrl + '/display?name=grande&pageSize=10&type=indoor';
-    // if (!token) return of(false)
-      
-  
+
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     console.log('headers::: ', headers);
 

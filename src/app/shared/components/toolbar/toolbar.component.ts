@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { AuthService } from 'app/services/auth.service';
 import { SideBarService } from 'app/services/sideBar.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { SideBarService } from 'app/services/sideBar.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarComponent {
+  private authService = inject(AuthService)
   constructor(private sideBarService: SideBarService) {}
   
   toggleDrawer(): void {
@@ -20,6 +22,9 @@ export class ToolbarComponent {
       this.sideBarService.setIsOpen(true);
     }, 120);
     
+  }
+  onLogout(){
+    this.authService.logout()
   }
   
 }
