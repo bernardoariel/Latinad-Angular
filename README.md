@@ -20,6 +20,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - Implementacion de Edicion
     - Implementacion de Eliminacion
     - Paginacion
+    - Filtros Indoor - OUTDOOR
    
 
 ## TODO
@@ -32,7 +33,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 8. Pruebas
 9. Errores en los imputs
 10. Ver Error de la imagen lazyImage
-11. Filtros
 12. extra - tortas - DIF - stats
 13. Loadings
 14. Budscador

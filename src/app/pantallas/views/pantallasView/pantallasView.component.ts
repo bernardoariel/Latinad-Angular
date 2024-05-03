@@ -90,4 +90,11 @@ export class PantallasViewComponent implements OnInit {
   agregarDisplay() {
     this.router.navigateByUrl('/dashboard/pantalla');
   }
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.pageSize + 1;
+  }
+
+  get endIndex(): number {
+    return Math.min(this.startIndex + this.pageSize - 1, this.totalItems);
+  }
 }
