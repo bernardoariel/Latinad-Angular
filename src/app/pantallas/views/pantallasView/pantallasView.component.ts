@@ -29,6 +29,7 @@ export class PantallasViewComponent implements OnInit {
   totalPages = 0;
   pageSizeOptions = [5, 10, 15, 30];
   selectedType: DisplayType = DisplayType.All;
+  searchQuery: string = '';
   constructor(private cdr: ChangeDetectorRef) {
     this.loadDisplays();
   }
@@ -49,15 +50,17 @@ export class PantallasViewComponent implements OnInit {
     });
   }
 
-  loadDisplays(): void {
+  loadDisplays(searchName?: string): void {
+    console.log('searchName::: ', searchName);
     this.isLoading = true;
     const typeFilter =
       this.selectedType === DisplayType.All ? undefined : this.selectedType;
+
     this.displayService
       .getDisplayList(
         this.pageSize,
         (this.currentPage - 1) * this.pageSize,
-        undefined,
+        searchName,
         typeFilter
       )
       .subscribe({
@@ -74,6 +77,12 @@ export class PantallasViewComponent implements OnInit {
           this.cdr.markForCheck();
         },
       });
+  }
+  handleKeyDown(event: KeyboardEvent) {
+   
+    if (event.ctrlKey && event.key === 'Enter') {
+      this.loadDisplays(this.searchQuery);
+    }
   }
   onChangePageSize(event: Event) {
     const element = event.target as HTMLSelectElement; // Aseguramiento del tipo

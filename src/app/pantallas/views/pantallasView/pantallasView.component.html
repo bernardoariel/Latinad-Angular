@@ -7,16 +7,47 @@
     </div>
 
     <div *ngIf="!isLoading && displays.length > 0">
-
-    <div class="botonera">
-      <label class="input input-bordered flex items-center gap-2">
-  <input type="text" class="grow" placeholder="Search" />
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /></svg>
-</label>
-      <button class="btn btn-square" (click)="agregarDisplay()">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+      
+      <div class="flex items-center justify-between w-full">
+        <div class="flex items-center space-x-2">
+          <!-- Campo de texto con ícono de búsqueda -->
+          <div class="flex items-center">
+            <label class="input input-bordered flex items-center gap-2">
+              <input type="text" class="grow" placeholder="Search"[(ngModel)]="searchQuery"(keydown)="handleKeyDown($event)" />
+              <kbd class="kbd kbd-sm">ctrl</kbd>
+              <kbd class="kbd kbd-sm">Enter</kbd>
+            </label>
+           
+          </div>
+          <!-- Botón para buscar -->
+          <button class="btn btn-accent" (click)="loadDisplays(searchQuery)">
+            Buscar
+          </button>
+        </div>
+        <!-- Botones de selección de tipo de pantalla -->
+        <div class="flex items-center space-x-4">
+          <label>
+            <input type="radio" class="radio radio-success" [value]="DisplayType.All" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Todos
+          </label>
+          <label>
+            <input type="radio" class="radio radio-success" [value]="DisplayType.Indoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Indoor
+          </label>
+          <label>
+            <input type="radio" class="radio radio-success" [value]="DisplayType.Outdoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Outdoor
+          </label>
+        </div>
+        <!-- Botón para agregar, redondo con icono +, alineado al final -->
+        <button class="btn  rounded-full p-0 w-12 h-12 flex items-center justify-center" (click)="agregarDisplay()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
       </button>
-      <label>
+    </div>
+
+      
+    
+      <!-- <label>
         <input type="radio" class="radio radio-success" [value]="DisplayType.All" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Todos
       </label>
       <label>
@@ -24,8 +55,8 @@
       </label>
       <label>
         <input type="radio" class="radio radio-success" [value]="DisplayType.Outdoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Outdoor
-      </label>
-    </div>
+      </label> -->
+  
     <app-my-table [displays]="displays"></app-my-table>
     <div class="flex justify-between items-center px-4 py-2">
       <!-- Total de registros -->
