@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { DisplayService } from 'app/services/display.service';
 import { SideBarService } from 'app/services/sideBar.service';
 import { Subscription } from 'rxjs';
 
@@ -14,7 +15,8 @@ import { Subscription } from 'rxjs';
 })
 export class SidebarComponent {
   private subscription: Subscription;
-  private router = inject(Router)
+  private router = inject(Router);
+  private displayService = inject(DisplayService);
   isOpen = false;
 
   constructor(
@@ -37,5 +39,8 @@ export class SidebarComponent {
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+  onSeedDisplay():void{
+    this.displayService.createMultipleDisplay(5)
   }
 }

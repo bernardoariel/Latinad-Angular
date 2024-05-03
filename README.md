@@ -19,8 +19,24 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - Creacion de un display Form - Servicios
     - Implementacion de Edicion
     - Implementacion de Eliminacion
+   
 
-    
+## TODO
+1. Guards para el login
+2. Guards para cualquier otra parte
+3. Salir y eliminar el  token
+4. Guardar storage lo que se navego
+5. Agregar al boton de + el nombre y tunearlo mejor
+6. Responsive
+7. Boton Cancelar para la edicion / New
+8. Pruebas
+9. Errores en los imputs
+10. Ver Error de la imagen lazyImage
+11. Paginacion y Filtros
+12. extra - tortas
+13. Loadings
+14. Budscador
+
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 

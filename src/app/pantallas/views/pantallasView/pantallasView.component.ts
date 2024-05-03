@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DisplayService } from 'app/services/display.service';
 import { MyTableComponent } from 'app/shared/components/MyTable/MyTable.component';
@@ -14,34 +14,61 @@ import { delayWhen, timer } from 'rxjs';
   styleUrl: './pantallasView.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PantallasViewComponent {
+export class PantallasViewComponent implements OnInit {
   private displayService = inject(DisplayService);
   private router = inject(Router);
   isLoading: boolean = true;
   displays: any[] = [];
+  currentPage = 1;
+  pageSize = 10;
+  totalItems = 0;
+  totalPages = 0;
+  pageSizeOptions = [5, 10, 15, 30];
   constructor(private cdr: ChangeDetectorRef) {
     this.loadDisplays();
   }
+  ngOnInit() {
+    this.subscribeToDisplays();
+    this.loadDisplays();
+  }
+  subscribeToDisplays(): void {
+    this.displayService.displays$.subscribe((displays) => {
+      this.displays = displays;
+      this.isLoading = false;
+      this.cdr.markForCheck();
+    });
+  }
 
   loadDisplays(): void {
+    // Ajusta el cálculo para offset basándose en que currentPage empieza en 1
     this.displayService
-      .getDisplayList(10, 1)
-      .pipe(
-        delayWhen(() => timer(1000)) // Espera 1000 ms antes de emitir los resultados
-      )
+      .getDisplayList(this.pageSize, (this.currentPage - 1) * this.pageSize)
       .subscribe({
-        next: (data) => {
-          this.displays = data.data;
-         
-          this.isLoading = false; // Finalizar carga
-          this.cdr.markForCheck(); // Trigger change detection
+        next: ({ data, totalCount }) => {
+          this.displays = data;
+          this.totalItems = totalCount;
+          this.totalPages = Math.ceil(this.totalItems / this.pageSize);
+          this.isLoading = false;
+          this.cdr.markForCheck();
         },
         error: (error) => {
           console.error('Error fetching displays:', error);
-          this.isLoading = false; // También manejar estado de carga en caso de error
-          this.cdr.markForCheck(); // Trigger change detection
+          this.isLoading = false;
+          this.cdr.markForCheck();
         },
       });
+  }
+  onChangePageSize(event: Event) {
+    const element = event.target as HTMLSelectElement; // Aseguramiento del tipo
+    const newSize = parseInt(element.value, 10);
+    this.pageSize = newSize;
+    this.currentPage = 1; // Reinicia a la primera página
+    this.loadDisplays();
+  }
+  navigateToPage(page: number): void {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.loadDisplays();
   }
   agregarDisplay() {
     this.router.navigateByUrl('/dashboard/pantalla');

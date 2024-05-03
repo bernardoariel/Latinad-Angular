@@ -19,7 +19,7 @@ export class MyTableComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['displays'] && changes['displays'].currentValue) {
-      console.log('Displays updated:', this.displays);
+      console.log('Displays updated!!!:', this.displays);
     }
   }
   navigate(id: number) {
