@@ -35,8 +35,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 9. Errores en los imputs
 10. Ver Error de la imagen lazyImage
 12. extra - tortas - DIF - stats
-14. fix boton que gira del toolbar
-15. Mensajes - modales
+
+
 
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
