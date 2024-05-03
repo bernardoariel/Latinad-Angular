@@ -22,6 +22,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - Paginacion
     - Filtros Indoor - OUTDOOR
     - Buscador
+    - Guard's AUTH
    
 
 ## TODO
