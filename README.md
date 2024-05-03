@@ -19,6 +19,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - Creacion de un display Form - Servicios
     - Implementacion de Edicion
     - Implementacion de Eliminacion
+    - Paginacion
    
 
 ## TODO
@@ -28,11 +29,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 4. Guardar storage lo que se navego
 5. Agregar al boton de + el nombre y tunearlo mejor
 6. Responsive
-7. Boton Cancelar para la edicion / New
 8. Pruebas
 9. Errores en los imputs
 10. Ver Error de la imagen lazyImage
-11. Paginacion y Filtros
+11. Filtros
 12. extra - tortas
 13. Loadings
 14. Budscador
