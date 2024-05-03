@@ -5,12 +5,13 @@ import { PantallasViewComponent } from './pantallas/views/pantallasView/pantalla
 import { PantallaViewComponent } from './pantallas/views/pantallaView/pantallaView.component';
 import { authenticationGuard } from './guard/authentication.guard';
 import { notAuthenticationGuard } from './guard/notAuthentication .guard';
+import { DashboardComponent } from './pantallas/views/dashboard/dashboard.component';
 
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard/pantallas',
+    redirectTo: '/dashboard',
     pathMatch: 'full',
   },
   {
@@ -24,7 +25,7 @@ export const routes: Routes = [
     canActivate: [authenticationGuard],
 
     children: [
-      { path: '', redirectTo: 'pantallas', pathMatch: 'full' },
+      { path: '', component: DashboardComponent },
       { path: 'pantallas', component: PantallasViewComponent },
       { path: 'pantalla', component: PantallaViewComponent },
       { path: 'pantalla/:id', component: PantallaViewComponent },
