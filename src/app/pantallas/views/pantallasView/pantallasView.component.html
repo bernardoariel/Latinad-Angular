@@ -11,7 +11,7 @@
           <!-- Campo de texto con ícono de búsqueda -->
           <div class="flex items-center">
             <label class="input input-bordered flex items-center gap-2">
-              <input #searchInput type="text" class="grow" placeholder="Search"[(ngModel)]="searchQuery"(keydown)="handleKeyDown($event)" />
+              <input #searchInput type="text" class="grow" placeholder="Buscar..."[(ngModel)]="searchQuery"(keydown)="handleKeyDown($event)" />
               <kbd class="kbd kbd-sm">ctrl</kbd>
               <kbd class="kbd kbd-sm">Enter</kbd>
             </label>
@@ -46,7 +46,7 @@
       
  
   
-    <app-my-table [displays]="displays"></app-my-table>
+    <app-my-table [displays]="displays" (requestDelete)="handleRequestDelete($event)" />
     <div class="flex justify-between items-center px-4 py-2">
       <!-- Total de registros -->
       <span>Total de registros encontrados: {{ totalItems }}, mostrando {{ startIndex }} - {{ endIndex }} de {{ totalItems }}</span>
@@ -86,4 +86,34 @@
 
   </div>
 </div>
+<dialog class="modal" [open]="dialogOpen" #validationModal>
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <div class="border-b border-b-gray-100  mb-4">
+      <h3 class="font-bold text-lg mt-3">Mensaje del Sistema</h3>
+    </div>
+    <div class="flex flex-col items-center">
+      <svg width="96px" height="96px" viewBox="0 0 91 91" enable-background="new 0 0 91 91" id="Layer_1" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M16.142,90.613H68.39c3.418,0,6.197-2.779,6.197-6.195V29.52l-58.445-0.002V90.613z" fill="#647F94"></path> <path d="M58.431,42.701c0-1.547,1.254-2.801,2.801-2.801s2.803,1.254,2.803,2.801v37.295 c0,1.549-1.256,2.801-2.803,2.801s-2.801-1.252-2.801-2.801V42.701z M42.56,42.701c0-1.547,1.254-2.801,2.803-2.801 c1.545,0,2.799,1.254,2.799,2.801v37.295c0,1.549-1.254,2.801-2.799,2.801c-1.549,0-2.803-1.252-2.803-2.801V42.701z M26.688,42.701c0-1.547,1.256-2.801,2.801-2.801c1.547,0,2.803,1.254,2.803,2.801v37.295c0,1.549-1.256,2.801-2.803,2.801 c-1.545,0-2.801-1.252-2.801-2.801V42.701z" fill="#95AEC2"></path> <rect fill="#6EC4A7" height="9.438" width="66.611" x="12.056" y="14.479"></rect> <rect fill="#647F94" height="7.887" width="18.205" x="36.259" y="0.99"></rect> </g> </g> </g></svg>
+      <p class="text-xl">¿Está seguro que desea eliminar este item?</p>
+      <p class="italic text-gray-600">{{ nameItemByDelete }}, con <span class="font-bold">id: {{currentIdToDelete}}</span></p>
+    </div>
+    <div class="modal-action">
+      <button class="btn" (click)="cancelDelete()">No</button>
+      <button class="btn btn-primary" (click)="confirmDelete()">Sí</button>
+    </div>
+  </div>
+</dialog>
+@if(seeToast){
+<div class="toast toast-top toast-end">
+ 
+  <div class="alert alert-success">
+    <span>Se ha eliminado correctamente</span>
+  </div>
+</div>
+}
+  
+
+
 

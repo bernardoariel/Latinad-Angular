@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, SimpleChanges, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DisplayService } from 'app/services/display.service';
 
@@ -13,6 +13,7 @@ import { DisplayService } from 'app/services/display.service';
 })
 export class MyTableComponent {
   @Input() displays: any[] = [];
+  @Output() requestDelete = new EventEmitter<number>();
   private router = inject(Router);
   private displayService = inject(DisplayService);
   constructor(private cdr: ChangeDetectorRef) {}
@@ -25,7 +26,10 @@ export class MyTableComponent {
   navigate(id: number) {
     this.router.navigateByUrl(`/dashboard/pantalla/${id}`);
   }
-  onDeleteDisplay(id: number) {
+  onDeleteDisplay(display: any) {
+    this.requestDelete.emit(display);
+  }
+  /* onDeleteDisplay(id: number) {
     this.displayService.deleteDisplay(id).subscribe({
       next: (response) => {
         console.log('Display eliminado con éxito', response);
@@ -37,7 +41,7 @@ export class MyTableComponent {
         console.error('Error al eliminar display', error);
       },
     });
-  }
+  } */
   private removeDisplayFromList(id: number) {
     this.displays = this.displays.filter((display) => display.id !== id);
   }

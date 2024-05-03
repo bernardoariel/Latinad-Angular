@@ -30,12 +30,44 @@ export class PantallasViewComponent implements OnInit {
   pageSizeOptions = [5, 10, 15, 30];
   selectedType: DisplayType = DisplayType.All;
   searchQuery: string = '';
+  dialogOpen: boolean = false;
+  currentIdToDelete: number | null = null;
+  seeToast: boolean = false;
+  nameItemByDelete= ''
   constructor(private cdr: ChangeDetectorRef) {
     this.loadDisplays();
   }
   ngOnInit() {
     this.subscribeToDisplays();
     this.loadDisplays();
+  }
+  handleRequestDelete(display: any) {
+    this.currentIdToDelete = display.id;
+    this.nameItemByDelete = display.name
+    this.dialogOpen = true; // Opens the modal dialog
+  }
+  confirmDelete() {
+    if (this.currentIdToDelete != null) {
+      this.displayService.deleteDisplay(this.currentIdToDelete).subscribe({
+        next: (response) => {
+          this.dialogOpen = false;
+          this.seeToast = true;
+          setTimeout(() => {
+            this.seeToast = false;
+            this.cdr.detectChanges();
+          }, 2000);
+          this.cdr.detectChanges();
+          this.loadDisplays();
+        },
+        error: (error) => {
+          console.error('Error al eliminar display', error);
+        },
+      });
+    }
+  }
+
+  cancelDelete() {
+    this.dialogOpen = false; // Just close the modal dialog
   }
   onChangeType(type: DisplayType) {
     this.selectedType = type;
