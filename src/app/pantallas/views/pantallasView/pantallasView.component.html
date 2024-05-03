@@ -10,7 +10,20 @@
       <p>Loading displays...</p> <!-- o cualquier otro indicador de carga como un spinner -->
     </div>
     <div *ngIf="!isLoading && displays.length > 0">
-      
+   <div>
+  <label>
+    <input type="radio" class="radio radio-success" [value]="DisplayType.All" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Todos
+  </label>
+  <label>
+    <input type="radio" class="radio radio-success" [value]="DisplayType.Indoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Indoor
+  </label>
+  <label>
+    <input type="radio" class="radio radio-success" [value]="DisplayType.Outdoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Outdoor
+  </label>
+</div>
+
+
+<button (click)="loadDisplays()">Actualizar</button>
       <app-my-table [displays]="displays"></app-my-table>
      <div class="pagination-controls flex items-center justify-center space-x-2">
   <button class="btn" (click)="navigateToPage(1)" [disabled]="currentPage === 1">

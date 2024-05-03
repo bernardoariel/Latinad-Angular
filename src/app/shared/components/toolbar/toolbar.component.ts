@@ -14,9 +14,12 @@ export class ToolbarComponent {
   constructor(private sideBarService: SideBarService) {}
   
   toggleDrawer(): void {
-    console.log('toogle en toolbar')
-    this.sideBarService.toggleDrawer();
-    this.sideBarService.setIsOpen(true);
+    
+    setTimeout(() => {
+      this.sideBarService.toggleDrawer();
+      this.sideBarService.setIsOpen(true);
+    }, 120);
+    
   }
   
 }

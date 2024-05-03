@@ -1,20 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DisplayType } from 'app/interfaces/typeDisplays.interface';
 import { DisplayService } from 'app/services/display.service';
 import { MyTableComponent } from 'app/shared/components/MyTable/MyTable.component';
-import { delayWhen, timer } from 'rxjs';
+
+
 
 
 @Component({
   selector: 'app-pantallas-view',
   standalone: true,
-  imports: [CommonModule, MyTableComponent],
+  imports: [CommonModule, FormsModule, MyTableComponent],
   templateUrl: './pantallasView.component.html',
   styleUrl: './pantallasView.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PantallasViewComponent implements OnInit {
+  public DisplayType = DisplayType;
   private displayService = inject(DisplayService);
   private router = inject(Router);
   isLoading: boolean = true;
@@ -24,11 +28,17 @@ export class PantallasViewComponent implements OnInit {
   totalItems = 0;
   totalPages = 0;
   pageSizeOptions = [5, 10, 15, 30];
+  selectedType: DisplayType = DisplayType.All;
   constructor(private cdr: ChangeDetectorRef) {
     this.loadDisplays();
   }
   ngOnInit() {
     this.subscribeToDisplays();
+    this.loadDisplays();
+  }
+  onChangeType(type: DisplayType) {
+    this.selectedType = type;
+    this.currentPage = 1; // Reset to the first page when type changes
     this.loadDisplays();
   }
   subscribeToDisplays(): void {
@@ -40,9 +50,16 @@ export class PantallasViewComponent implements OnInit {
   }
 
   loadDisplays(): void {
-    // Ajusta el cálculo para offset basándose en que currentPage empieza en 1
+    this.isLoading = true;
+    const typeFilter =
+      this.selectedType === DisplayType.All ? undefined : this.selectedType;
     this.displayService
-      .getDisplayList(this.pageSize, (this.currentPage - 1) * this.pageSize)
+      .getDisplayList(
+        this.pageSize,
+        (this.currentPage - 1) * this.pageSize,
+        undefined,
+        typeFilter
+      )
       .subscribe({
         next: ({ data, totalCount }) => {
           this.displays = data;
