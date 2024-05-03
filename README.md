@@ -21,6 +21,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - Implementacion de Eliminacion
     - Paginacion
     - Filtros Indoor - OUTDOOR
+    - Buscador
    
 
 ## TODO
@@ -28,14 +29,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 2. Guards para cualquier otra parte
 3. Salir y eliminar el  token
 4. Guardar storage lo que se navego
-5. Agregar al boton de + el nombre y tunearlo mejor
 6. Responsive
 8. Pruebas
 9. Errores en los imputs
 10. Ver Error de la imagen lazyImage
 12. extra - tortas - DIF - stats
 13. Loadings
-14. Budscador
+
 
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
