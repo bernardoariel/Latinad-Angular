@@ -45,7 +45,7 @@ export class PantallasViewComponent implements OnInit {
   handleRequestDelete(display: any) {
     this.currentIdToDelete = display.id;
     this.nameItemByDelete = display.name
-    this.dialogOpen = true; // Opens the modal dialog
+    this.dialogOpen = true;
   }
   confirmDelete() {
      this.isDisabled = true; 
@@ -70,11 +70,11 @@ export class PantallasViewComponent implements OnInit {
   }
 
   cancelDelete() {
-    this.dialogOpen = false; // Just close the modal dialog
+    this.dialogOpen = false; 
   }
   onChangeType(type: DisplayType) {
     this.selectedType = type;
-    this.currentPage = 1; // Reset to the first page when type changes
+    this.currentPage = 1; 
     this.loadDisplays();
   }
   subscribeToDisplays(): void {
@@ -121,10 +121,10 @@ export class PantallasViewComponent implements OnInit {
     }
   }
   onChangePageSize(event: Event) {
-    const element = event.target as HTMLSelectElement; // Aseguramiento del tipo
+    const element = event.target as HTMLSelectElement; 
     const newSize = parseInt(element.value, 10);
     this.pageSize = newSize;
-    this.currentPage = 1; // Reinicia a la primera página
+    this.currentPage = 1;
     this.loadDisplays();
   }
   navigateToPage(page: number): void {

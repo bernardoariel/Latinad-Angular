@@ -34,7 +34,7 @@ export class SidebarComponent {
   }
   navigate(url: string) {
     this.router.navigateByUrl(url).then(() => {
-      this.sideBarService.setIsOpen(false); // Cierra el sidebar después de la navegación
+      this.sideBarService.setIsOpen(false);
     });
   }
   ngOnDestroy(): void {

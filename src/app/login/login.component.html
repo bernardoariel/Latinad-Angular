@@ -26,18 +26,18 @@
           
         </div>
         <div class="form-control mt-6">
-          <button class="btn btn-primary">Login</button>
+          <button class="btn btn-primary">Login
+            <span class="loading loading-spinner" *ngIf="isLoading"></span>
+          </button>
         </div>
       </form>
     </div>
   </div>
   <label class="swap swap-flip text-9xl logo bottom-10 left-20">
+    <input type="checkbox" />
   
-  <!-- this hidden checkbox controls the state -->
-  <input type="checkbox" />
-  
-  <div class="swap-on" title="toqueton jeje">😈</div>
-  <div class="swap-off" title="Logueate por favor!">😇</div>
-</label>
- <!--  <img src="../../assets/logo.png" class="logo bottom-10 right-10" alt="Logo"> -->
+    <div class="swap-on" title="toqueton jeje">😈</div>
+    <div class="swap-off" title="Logueate por favor!">😇</div>
+  </label>
+
 </div>

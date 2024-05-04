@@ -26,17 +26,17 @@
         <!-- Botones de selección de tipo de pantalla -->
         <div class="flex items-center space-x-4 mt-5 md:mt-5">
           <label>
-            <input type="radio" class="radio radio-success" [value]="DisplayType.All" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Todos
+            <input type="radio" class="radio radio-secondary" [value]="DisplayType.All" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Todos
           </label>
           <label>
-            <input type="radio" class="radio radio-success" [value]="DisplayType.Indoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Indoor
+            <input type="radio" class="radio radio-secondary" [value]="DisplayType.Indoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Indoor
           </label>
           <label>
-            <input type="radio" class="radio radio-success" [value]="DisplayType.Outdoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Outdoor
+            <input type="radio" class="radio radio-secondary" [value]="DisplayType.Outdoor" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Outdoor
           </label>
         </div>
         <!-- Botón para agregar, redondo con icono +, alineado al final -->
-        <button class="btn  rounded-full p-0 w-12 h-12 flex items-center justify-center mt-3 md:mt-3" (click)="agregarDisplay()">
+        <button class="btn btn-warning rounded-full p-0 w-12 h-12 flex items-center justify-center mt-3 md:mt-3" (click)="agregarDisplay()">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
