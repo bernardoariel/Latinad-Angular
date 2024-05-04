@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DisplayService } from 'app/services/display.service';
 
@@ -14,13 +14,14 @@ import { DisplayService } from 'app/services/display.service';
     width: 50px;  /* Ajusta al tamaño deseado */
     height: auto; /* Mantiene la proporción */
     fill: currentColor; /* Hereda el color del texto del elemento padre */
-}`,
+  }`,
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   public isLoading: boolean = true;
   displays: any[] = []; // Ensure this is an array
   totalItems: number = 0;
   userName: string = '';
+  public isMobile: boolean = window.innerWidth < 600;
   constructor(
     private cdr: ChangeDetectorRef,
     private displayService: DisplayService,
@@ -28,6 +29,9 @@ export class DashboardComponent {
   ) {
     this.userName = localStorage.getItem('userName') || '';
     this.loadDisplays();
+  }
+  ngOnInit() {
+    this.isMobile = window.innerWidth < 600;
   }
   loadDisplays(): void {
     this.displayService.getDisplayList(10, 0).subscribe({
@@ -66,7 +70,11 @@ export class DashboardComponent {
     }
     return (this.indoorCount / this.totalDisplays) * 100;
   }
-  navigateToDisplay(){
-     this.router.navigateByUrl('/dashboard/pantallas');
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+    this.isMobile = window.innerWidth < 600;
+  }
+  navigateToDisplay() {
+    this.router.navigateByUrl('/dashboard/pantallas');
   }
 }

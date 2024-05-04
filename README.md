@@ -26,13 +26,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - Logout 
     - Errores inputs
     - Nuevo Dashboard
+    - Image Fix
+    - Responsive
 
-## TODO
 
-
-
-6. Responsive
-8. Pruebas
 
 
 
