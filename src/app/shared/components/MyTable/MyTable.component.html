@@ -1,59 +1,97 @@
 <div class="overflow-x-auto">
-  <table class="table table-zebra">
-    <!-- head -->
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>Imagen</th>
-        <th>Nombre</th>
-        <th>Descripcion</th>
-        
-        <th>Precio</th>
-        <th>Resoluciones (h/w)</th>
-        <th>Tipo</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      @for (display of displays; track display.id) {
-        <tr class="hover">
-          <td>
-            {{display.id}}
-          </td>
-          <td>
-            <div class="flex items-center gap-3">
+   <div class="md:hidden">
+    <div *ngFor="let display of displays">
+      <div class="p-4 shadow rounded-lg bg-white my-2">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
             <div class="avatar">
               <div class="mask mask-squircle w-12 h-12">
-                <img [src]="display.picture_url" [alt]="display.name" class="hover:animate-pulse" />
+                <img src="{{ display.picture_url }}" alt="{{ display.name }}" />
               </div>
             </div>
+            <div>
+              <h4 class="text-lg font-semibold">{{ display.name | titlecase }}</h4>
+              <p>{{ display.description | lowercase }}</p>
             </div>
-            
-          </td>
-          <td>
-            {{display.name | titlecase}}
-          </td>
-          <td>
-            {{display.description | lowercase}}
-          </td>
-          <td>
-            {{display.price_per_day}}
-          </td>
-          <td>
-            {{display.resolution_height}} | {{display.resolution_width}}
-          </td>
-          <td>
-            {{display.type | uppercase}} 
-          </td>
-          <td>
-            <button  class="btn btn-square btn-info p-1 px-1 text-sm w-8 h-auto mr-1" (click)="navigate(display.id)">
-              <svg viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>edit_cover [#1481]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-419.000000, -359.000000)" fill="#000000"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M384,209.210475 L384,219 L363,219 L363,199.42095 L373.5,199.42095 L373.5,201.378855 L365.1,201.378855 L365.1,217.042095 L381.9,217.042095 L381.9,209.210475 L384,209.210475 Z M370.35,209.51395 L378.7731,201.64513 L380.4048,203.643172 L371.88195,212.147332 L370.35,212.147332 L370.35,209.51395 Z M368.25,214.105237 L372.7818,214.105237 L383.18415,203.64513 L378.8298,199 L368.25,208.687714 L368.25,214.105237 Z" id="edit_cover-[#1481]"> </path> </g> </g> </g> </g></svg>
-            </button>
-            <button class="btn btn-square btn-warning p-1 px-1 text-sm w-8 h-auto" (click)="onDeleteDisplay(display)"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.17065 4C9.58249 2.83481 10.6937 2 11.9999 2C13.3062 2 14.4174 2.83481 14.8292 4" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M20.5 6H3.49988" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5M18.8334 8.5L18.6334 11.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M9.5 11L10 16" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M14.5 11L14 16" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg></button>
-          </td>
+          </div>
+          <span>ID: {{ display.id }}</span>
+        </div>
+        <div class="mt-2 flex justify-between items-center">
+          <div>
+            <span class="text-sm font-medium">Precio: {{ display.price_per_day }}</span>
+            <span class="mx-2">|</span>
+            <span class="text-sm font-medium">Resoluciones: {{ display.resolution_height }}/{{ display.resolution_width }}</span>
+          </div>
+          <div>
+            <span class="text-sm font-medium">{{ display.type | uppercase }}</span>
+          </div>
+        </div>
+        <div class="mt-2 flex space-x-2">
+          <button  class="btn btn-circle btn-info p-1 px-1 text-sm  h-auto mr-1" (click)="navigate(display.id)">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18.18 8.03933L18.6435 7.57589C19.4113 6.80804 20.6563 6.80804 21.4241 7.57589C22.192 8.34374 22.192 9.58868 21.4241 10.3565L20.9607 10.82M18.18 8.03933C18.18 8.03933 18.238 9.02414 19.1069 9.89309C19.9759 10.762 20.9607 10.82 20.9607 10.82M18.18 8.03933L13.9194 12.2999C13.6308 12.5885 13.4865 12.7328 13.3624 12.8919C13.2161 13.0796 13.0906 13.2827 12.9882 13.4975C12.9014 13.6797 12.8368 13.8732 12.7078 14.2604L12.2946 15.5L12.1609 15.901M20.9607 10.82L16.7001 15.0806C16.4115 15.3692 16.2672 15.5135 16.1081 15.6376C15.9204 15.7839 15.7173 15.9094 15.5025 16.0118C15.3203 16.0986 15.1268 16.1632 14.7396 16.2922L13.5 16.7054L13.099 16.8391M13.099 16.8391L12.6979 16.9728C12.5074 17.0363 12.2973 16.9867 12.1553 16.8447C12.0133 16.7027 11.9637 16.4926 12.0272 16.3021L12.1609 15.901M13.099 16.8391L12.1609 15.901" stroke="#1C274C" stroke-width="1.5"></path> <path d="M8 13H10.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M8 9H14.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M8 17H9.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M3 14V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H13C16.7712 2 18.6569 2 19.8284 3.17157M21 14C21 17.7712 21 19.6569 19.8284 20.8284M4.17157 20.8284C5.34315 22 7.22876 22 11 22H13C16.7712 22 18.6569 22 19.8284 20.8284M19.8284 20.8284C20.7715 19.8853 20.9554 18.4796 20.9913 16" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+              </button>
+              <button class="btn btn-circle btn-error p-1 px-1 text-sm  h-auto" (click)="onDeleteDisplay(display)"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.17065 4C9.58249 2.83481 10.6937 2 11.9999 2C13.3062 2 14.4174 2.83481 14.8292 4" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M20.5 6H3.49988" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5M18.8334 8.5L18.6334 11.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M9.5 11L10 16" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M14.5 11L14 16" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden md:block">
+    <table class="table table-zebra ">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          
+          <th>Precio</th>
+          <th>Resoluciones (h/w)</th>
+          <th>Tipo</th>
+          <th>Acciones</th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+
+        @for (display of displays; track display.id) {
+          <tr class="hover">
+            <td>
+              {{display.id}}
+            </td>
+            <td>
+              <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="mask mask-squircle w-12 h-12">
+                  <img [src]="display.picture_url" [alt]="display.name" class="hover:animate-pulse" />
+                </div>
+              </div>
+              </div>
+              
+            </td>
+            <td>
+              {{display.name | titlecase}}
+            </td>
+            <td>
+              {{display.description | lowercase}}
+            </td>
+            <td>
+              {{display.price_per_day}}
+            </td>
+            <td>
+              {{display.resolution_height}} | {{display.resolution_width}}
+            </td>
+            <td>
+              {{display.type | uppercase}} 
+            </td>
+            <td>
+              <button  class="btn btn-circle btn-info p-1 px-1 text-sm  h-auto mr-1" (click)="navigate(display.id)">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18.18 8.03933L18.6435 7.57589C19.4113 6.80804 20.6563 6.80804 21.4241 7.57589C22.192 8.34374 22.192 9.58868 21.4241 10.3565L20.9607 10.82M18.18 8.03933C18.18 8.03933 18.238 9.02414 19.1069 9.89309C19.9759 10.762 20.9607 10.82 20.9607 10.82M18.18 8.03933L13.9194 12.2999C13.6308 12.5885 13.4865 12.7328 13.3624 12.8919C13.2161 13.0796 13.0906 13.2827 12.9882 13.4975C12.9014 13.6797 12.8368 13.8732 12.7078 14.2604L12.2946 15.5L12.1609 15.901M20.9607 10.82L16.7001 15.0806C16.4115 15.3692 16.2672 15.5135 16.1081 15.6376C15.9204 15.7839 15.7173 15.9094 15.5025 16.0118C15.3203 16.0986 15.1268 16.1632 14.7396 16.2922L13.5 16.7054L13.099 16.8391M13.099 16.8391L12.6979 16.9728C12.5074 17.0363 12.2973 16.9867 12.1553 16.8447C12.0133 16.7027 11.9637 16.4926 12.0272 16.3021L12.1609 15.901M13.099 16.8391L12.1609 15.901" stroke="#1C274C" stroke-width="1.5"></path> <path d="M8 13H10.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M8 9H14.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M8 17H9.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M3 14V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H13C16.7712 2 18.6569 2 19.8284 3.17157M21 14C21 17.7712 21 19.6569 19.8284 20.8284M4.17157 20.8284C5.34315 22 7.22876 22 11 22H13C16.7712 22 18.6569 22 19.8284 20.8284M19.8284 20.8284C20.7715 19.8853 20.9554 18.4796 20.9913 16" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+              </button>
+              <button class="btn btn-circle btn-error p-1 px-1 text-sm  h-auto" (click)="onDeleteDisplay(display)"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M9.17065 4C9.58249 2.83481 10.6937 2 11.9999 2C13.3062 2 14.4174 2.83481 14.8292 4" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M20.5 6H3.49988" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5M18.8334 8.5L18.6334 11.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M9.5 11L10 16" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M14.5 11L14 16" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g></svg></button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>

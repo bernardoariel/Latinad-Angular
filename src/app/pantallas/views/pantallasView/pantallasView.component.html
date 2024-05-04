@@ -1,29 +1,30 @@
 
 <div class="card bg-base-100 shadow-xl w-full mt-3 flex ">
   <div class="card-body flex justify-end"> 
+    <!-- loading -->
     <div class="flex justify-center items-center min-h-screen" *ngIf="isLoading">
       <div class="loading loading-bars loading-lg h-24 w-24"></div>
     </div>
     <div *ngIf="!isLoading && displays.length > 0">
-      
-      <div class="flex items-center justify-between w-full">
+      <div class="flex items-center justify-between w-full flex-col md:flex-row">
+        
         <div class="flex items-center space-x-2">
-          <!-- Campo de texto con ícono de búsqueda -->
+          
           <div class="flex items-center">
             <label class="input input-bordered flex items-center gap-2">
               <input #searchInput type="text" class="grow" placeholder="Buscar..."[(ngModel)]="searchQuery"(keydown)="handleKeyDown($event)" />
               <kbd class="kbd kbd-sm">ctrl</kbd>
               <kbd class="kbd kbd-sm">Enter</kbd>
             </label>
-           
           </div>
           <!-- Botón para buscar -->
           <button class="btn btn-accent" (click)="loadDisplays(searchQuery)">
             Buscar
           </button>
         </div>
+
         <!-- Botones de selección de tipo de pantalla -->
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-4 mt-5 md:mt-5">
           <label>
             <input type="radio" class="radio radio-success" [value]="DisplayType.All" [(ngModel)]="selectedType" (change)="loadDisplays()" /> Todos
           </label>
@@ -35,43 +36,41 @@
           </label>
         </div>
         <!-- Botón para agregar, redondo con icono +, alineado al final -->
-        <button class="btn  rounded-full p-0 w-12 h-12 flex items-center justify-center" (click)="agregarDisplay()">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-      </button>
-    </div>
-
-      
- 
-  
-    <app-my-table [displays]="displays" (requestDelete)="handleRequestDelete($event)" />
-    <div class="flex justify-between items-center px-4 py-2">
-      <!-- Total de registros -->
-      <span>Total de registros encontrados: {{ totalItems }}, mostrando {{ startIndex }} - {{ endIndex }} de {{ totalItems }}</span>
-      <!-- Controles de paginación -->
-      <div class="pagination-controls flex items-center justify-center space-x-2">
-        <button class="btn" (click)="navigateToPage(1)" [disabled]="currentPage === 1">
-          ««
+        <button class="btn  rounded-full p-0 w-12 h-12 flex items-center justify-center mt-3 md:mt-3" (click)="agregarDisplay()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
         </button>
-        <button class="btn" (click)="navigateToPage(currentPage - 1)" [disabled]="currentPage === 1">
-          «
-        </button>
-        <span>Página {{currentPage}} de {{totalPages}}</span>
-        <button class="btn" (click)="navigateToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
-          »
-        </button>
-        <button class="btn" (click)="navigateToPage(totalPages)" [disabled]="currentPage === totalPages">
-          »»
-        </button> 
       </div>
-      <!-- Selector de cantidad de registros por página -->
-      <label for="pageSize">Registros por Pagina:</label>
-      <select  class="select select-bordered w-30 ml-3 mr-3" id="pageSize" (change)="onChangePageSize($event)">
-        <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size === pageSize">{{ size }}</option>
-      </select>
-    </div>
+    <app-my-table [displays]="displays" (requestDelete)="handleRequestDelete($event)" />
+    <div class="flex md:flex-row flex-col justify-between items-center px-4 py-2">
+  <!-- Total de registros -->
+  <span>Total de registros encontrados: {{ totalItems }}, mostrando {{ startIndex }} - {{ endIndex }} de {{ totalItems }}</span>
+  <!-- Controles de paginación -->
+  <div class="pagination-controls flex items-center justify-center space-x-2 mt-2 md:mt-0">
+    <button class="btn" (click)="navigateToPage(1)" [disabled]="currentPage === 1">
+      ««
+    </button>
+    <button class="btn" (click)="navigateToPage(currentPage - 1)" [disabled]="currentPage === 1">
+      «
+    </button>
+    <span>Página {{currentPage}} de {{totalPages}}</span>
+    <button class="btn" (click)="navigateToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+      »
+    </button>
+    <button class="btn" (click)="navigateToPage(totalPages)" [disabled]="currentPage === totalPages">
+      »»
+    </button> 
+  </div>
+  <!-- Selector de cantidad de registros por página -->
+  <div class="mt-2 md:mt-0">
+    <label for="pageSize">Registros por Pagina:</label>
+    <select class="select select-bordered w-30 ml-3 mr-3" id="pageSize" (change)="onChangePageSize($event)">
+      <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size === pageSize">{{ size }}</option>
+    </select>
+  </div>
+</div>
     
 
       
@@ -86,6 +85,7 @@
 
   </div>
 </div>
+<!-- modal -->
 <dialog class="modal" [open]="dialogOpen" #validationModal>
   <div class="modal-box">
     <form method="dialog">
@@ -108,9 +108,9 @@
     </div>
   </div>
 </dialog>
+<!-- toast -->
 @if(seeToast){
 <div class="toast toast-top toast-end">
- 
   <div class="alert alert-success">
     <span>Se ha eliminado correctamente</span>
   </div>
