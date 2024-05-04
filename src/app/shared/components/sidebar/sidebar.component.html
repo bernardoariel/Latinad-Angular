@@ -1,4 +1,4 @@
-<div class="drawer">
+<div class="drawer7">
   <input id="my-drawer" type="checkbox" class="drawer-toggle"  [checked]="isOpen" (change)="onCheckboxChange($event)"/>
   <div class="drawer-content">
    
@@ -13,6 +13,9 @@
       <li><a class="mt-2" (click)="navigate('/dashboard/pantallas')">Ver Items</a></li>
       <li><a (click)="navigate('/dashboard/pantalla')">Agregar Item</a></li>
       <li><a (click)="onSeedDisplay()">Agregar Multiples Items</a></li>
+      <li class="mt-auto no-pointer-events">
+        <img src="../../../../assets/imgsidebar.png" alt="Imagen Descriptiva" class="block mx-auto w-full cursor-default">
+      </li>
       
     </ul>
   </div>

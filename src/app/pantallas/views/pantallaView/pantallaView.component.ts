@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,11 +12,7 @@ import { EMPTY, switchMap } from 'rxjs';
 @Component({
   selector: 'app-pantalla-view',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    LazyImageComponent
-  ],
+  imports: [CommonModule, ReactiveFormsModule, LazyImageComponent],
   templateUrl: './pantallaView.component.html',
   styleUrl: './pantallaView.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,10 +24,12 @@ export class PantallaViewComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private displayService = inject(DisplayService);
+  public isImageLoading: boolean = true; // Nuevo indicador
   isSaving = false;
-  isDisabled = false
+  isDisabled = false;
   public myForm!: FormGroup;
 
+  constructor(private cdr: ChangeDetectorRef) { }
   ngOnInit(): void {
     this.myForm = this.fb.group({
       name: [
@@ -79,25 +77,30 @@ export class PantallaViewComponent implements OnInit {
         switchMap((params) => {
           this.id = params.get('id');
           if (this.id) {
+            this.isImageLoading = true; // Asegúrate que se inicia el estado de carga
             return this.displayService.getDisplayById(+this.id);
           }
           return EMPTY;
         })
       )
       .subscribe((data) => {
+        console.log('Datos recibidos:', data); // Verifica los datos recibidos
         if (data) {
-          console.log('data::: ', data);
-          this.myForm.patchValue(data); // Carga los datos en el formulario
+          this.myForm.patchValue(data);
           this.imageUrl = data.picture_url;
+          this.cdr.markForCheck()
+          this.isImageLoading = false; // Cambia el estado cuando la imagen esté lista
         } else {
-          this.myForm.reset(); // Asegúrate de limpiar el formulario si es un nuevo ítem
+          this.myForm.reset();
+          this.imageUrl = ''; // Asegúrate de limpiar la URL si no hay datos
+          this.isImageLoading = false;
         }
       });
   }
   navigateToDisplays() {
     this.router.navigateByUrl('/dashboard/pantallas');
   }
-
+  
   guardarDisplay(): void {
     if (this.myForm.valid) {
       this.isSaving = true;
@@ -113,7 +116,7 @@ export class PantallaViewComponent implements OnInit {
             response
           );
           this.isSaving = false;
-          this.isDisabled = false; 
+          this.isDisabled = false;
           this.navigateToDisplays(); // Redirige al usuario después de la operación
         },
         error: (error) => {

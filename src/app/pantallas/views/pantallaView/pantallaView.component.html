@@ -82,7 +82,7 @@
     </div>
       <div class="card-actions justify-between mt-5">
         <button class="btn btn-accent" (click)="navigateToDisplays()" [disabled]="isDisabled">Cancelar</button>
-        <button class="btn btn-primary" (click)="guardarDisplay()">
+        <button class="btn btn-primary" (click)="guardarDisplay()" [disabled]="myForm.invalid ">
           <span class="loading loading-spinner" *ngIf="isSaving"></span>
           Guardar
         </button>
@@ -93,14 +93,20 @@
  
 </div>
 @if(id){
-<div class="card bg-base-100 shadow-xl mt-4 w-1/6 ml-3 ">
-    <app-lazy-image
-    [url]="imageUrl!"
-    [alt]="'No name'"
-    ></app-lazy-image>
-  
+<div class="card bg-base-100 shadow-xl mt-4 w-1/6 ml-3 flex justify-center items-center">
+  <div *ngIf="!isImageLoading; else loading">
+    <img [src]="imageUrl" alt="Display Image" class="block mx-auto"/>
+    <h2 class="mt-10 font-bold animate-pulse text-center">Esta foto no se puede editar.</h2>
+    <h2 class="text-xs text-center">Foto del producto</h2>
   </div>
+  <ng-template #loading>
+    <span class="loading loading-ring loading-lg"></span>
+  </ng-template>
+</div>
 }
+
+
+  
   
 </div>
 
