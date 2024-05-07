@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { environment } from 'environments/environment.development';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginResponse, User } from 'app/interfaces';
 import { Router } from '@angular/router';
@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private readonly baseUrl: string = environment.backendApi;
+  private userLoggedIn = new BehaviorSubject<boolean>(false);
+  userLoggedIn$ = this.userLoggedIn.asObservable();
   private router = inject(Router);
   private http = inject(HttpClient);
   constructor() {}
@@ -18,11 +20,19 @@ export class AuthService {
     const body = { email, password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
+      tap(() => {
+        this.userLoggedIn.next(true);
+      }),
       tap((response) =>
         console.log({ email: response.email, token: response.token })
       ),
       map(({ email, token }) => this.setAuthentication(email, token)),
-      catchError((err) => throwError(() => new Error(err.error.message)))
+      catchError((err) => {
+        // Mejor manejo de errores
+        const errorMessage =
+          err.error?.message || 'Error desconocido al intentar iniciar sesión';
+        return throwError(() => new Error(errorMessage));
+      })
     );
   }
 
@@ -39,6 +49,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('authToken');
     localStorage.removeItem('userName');
+    this.userLoggedIn.next(false);
     this.router.navigateByUrl('/login');
   }
   checkAuth(): Observable<boolean> {

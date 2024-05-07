@@ -86,7 +86,7 @@ export class PantallasViewComponent implements OnInit {
   }
 
   loadDisplays(searchName?: string): void {
-    if (searchName) this.searchQuery = '';
+    if (!searchName) this.searchQuery = '';
     this.isLoading = true;
     const typeFilter =
       this.selectedType === DisplayType.All ? undefined : this.selectedType;

@@ -16,13 +16,13 @@
           <label class="label">
             <span class="label-text">Email</span>
           </label>
-          <input type="email" placeholder="email" class="input input-bordered" required formControlName="email" />
+          <input type="email" placeholder="email" class="input input-bordered" required formControlName="email" (input)="clearErrorMessage()"/>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Password</span>
           </label>
-          <input type="password" placeholder="password" class="input input-bordered" required formControlName="password"/>
+          <input type="password" placeholder="password" class="input input-bordered" required formControlName="password" (input)="clearErrorMessage()"/>
           
         </div>
         <div class="form-control mt-6">
@@ -30,6 +30,9 @@
             <span class="loading loading-spinner" *ngIf="isLoading"></span>
           </button>
         </div>
+       <div *ngIf="errorMessage" class="mt-3 text-red-500">
+  {{ errorMessage }}
+</div>
       </form>
     </div>
   </div>

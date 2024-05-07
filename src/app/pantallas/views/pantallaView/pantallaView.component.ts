@@ -29,9 +29,10 @@ export class PantallaViewComponent implements OnInit {
   isDisabled = false;
   public myForm!: FormGroup;
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) {}
   ngOnInit(): void {
     this.myForm = this.fb.group({
+      // Definición de los controles del formulario
       name: [
         '',
         [
@@ -71,36 +72,36 @@ export class PantallaViewComponent implements OnInit {
       type: ['', [Validators.required]],
     });
 
-    // Carga los datos si estamos editando un ítem existente
+    // Manejo de la suscripción a los parámetros de ruta
     this.route.paramMap
       .pipe(
         switchMap((params) => {
           this.id = params.get('id');
           if (this.id) {
-            this.isImageLoading = true; // Asegúrate que se inicia el estado de carga
+            // Si hay id, procedemos a cargar los datos del display
             return this.displayService.getDisplayById(+this.id);
+          } else {
+            // Sin id, reseteamos el formulario y definimos que no hay carga pendiente
+            this.isImageLoading = false;
+            return EMPTY; // No hay más acciones necesarias aquí
           }
-          return EMPTY;
         })
       )
       .subscribe((data) => {
-        console.log('Datos recibidos:', data); // Verifica los datos recibidos
         if (data) {
+          // Si hay datos, actualizamos el formulario y manejamos la imagen
           this.myForm.patchValue(data);
-          this.imageUrl = data.picture_url;
-          this.cdr.markForCheck()
-          this.isImageLoading = false; // Cambia el estado cuando la imagen esté lista
-        } else {
-          this.myForm.reset();
-          this.imageUrl = ''; // Asegúrate de limpiar la URL si no hay datos
-          this.isImageLoading = false;
+          this.imageUrl = data.picture_url; // Asegura que la URL de la imagen se maneje adecuadamente
+          this.isImageLoading = false; // Terminamos la carga
         }
+        this.cdr.markForCheck(); // Notificamos a Angular para la detección de cambios
       });
   }
+
   navigateToDisplays() {
     this.router.navigateByUrl('/dashboard/pantallas');
   }
-  
+
   guardarDisplay(): void {
     if (this.myForm.valid) {
       this.isSaving = true;
